@@ -10,7 +10,10 @@ Intel HD Graphics 6xx or newer, and [28.20.100.8322 driver or newer](https://www
  pip install tensorflow-directml-plugin
 ```
 
-# 3. Important parameters
+# 3. Fine Tuning with Intel GPU
+![FineTuning_with_IntelGPU.png](https://github.com/developer-onizuka/IntelGPUonWSL/blob/main/FineTuning_With_IntelGPU.png)
+
+# 3-1. Important parameters
 Disable all of CUDA Devices in my system which has the Nvidia Quadro P1000.
 ```
 os.environ['CUDA_VISIBLE_DEVICE'] = '-1'
