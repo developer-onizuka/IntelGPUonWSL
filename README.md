@@ -50,6 +50,7 @@ $ wsl --install -d Ubuntu
 ```
 $ apt install pip -y
 $ pip install pyspark
+$ pip install pyarrow
 $ pip install fastparquet
 $ pip install transformers
 $ pip install ipywidgets widgetsnbextension pandas-profiling
