@@ -10,6 +10,8 @@ Intel HD Graphics 6xx or newer, and [28.20.100.8322 driver or newer](https://www
  pip install tensorflow-cpu==2.15.0
  pip install tensorflow-directml-plugin
 ```
+> https://hashicco.hatenablog.com/entry/2022/06/23/201222
+
 # 2-2. Check if Intel GPU works well
 You can see the number of GPUs including iGPU.
 ```
@@ -40,7 +42,6 @@ with tf.device('/device:GPU:1'):
         callbacks=callbacks,
     )
 ```
-> https://hashicco.hatenablog.com/entry/2022/06/23/201222
 
 # 3-2. Install WSL on Windows 10
 ```
