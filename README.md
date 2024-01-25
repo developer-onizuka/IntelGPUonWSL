@@ -40,6 +40,7 @@ with tf.device('/device:GPU:1'):
         callbacks=callbacks,
     )
 ```
+> https://hashicco.hatenablog.com/entry/2022/06/23/201222
 
 # 3-2. Install WSL on Windows 10
 ```
