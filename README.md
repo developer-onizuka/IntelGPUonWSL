@@ -4,15 +4,31 @@ Run machine learning (ML) training on their existing DirectX 12-enabled hardware
 # 1. Install Intel iGPU driver
 Intel HD Graphics 6xx or newer, and [28.20.100.8322 driver or newer](https://www.intel.com/content/www/us/en/download/19344/intel-graphics-windows-dch-drivers.html)
 
-# 2. Install libraries
-# 2-1. Install TensorFlow and tensorflow-directml-plugin
+# 2. Install WSL on Windows 10
+```
+$ wsl --install -d Ubuntu
+```
+# 3. Install libraries
+# 3-1. Install some modules
+You might need to install pip through "apt install pip -y" before install each module.
+```
+$ pip install pyspark
+$ pip install pyarrow
+$ pip install scikit-learn
+$ pip install fastparquet
+$ pip install transformers
+$ pip install ipywidgets widgetsnbextension pandas-profiling
+$ pip install matplotlib==3.7.3
+```
+
+# 3-2. Install TensorFlow and tensorflow-directml-plugin
 ```
  pip install tensorflow-cpu==2.15.0
  pip install tensorflow-directml-plugin
 ```
 > https://hashicco.hatenablog.com/entry/2022/06/23/201222
 
-# 2-2. Check if Intel GPU works well
+# 3-3. Check if Intel GPU works well
 You can see the number of GPUs including iGPU.
 ```
 $ python3
@@ -20,10 +36,10 @@ $ python3
 >>> print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 ```
 
-# 3. Fine Tuning with Intel GPU
+# 4. Fine Tuning with Intel GPU
 ![FineTuning_with_IntelGPU.png](https://github.com/developer-onizuka/IntelGPUonWSL/blob/main/FineTuning_With_IntelGPU.png)
 
-# 3-1. Important parameters
+# 4-1. Important parameters
 Disable all of CUDA Devices in my system which has the Nvidia Quadro P1000.
 ```
 os.environ['CUDA_VISIBLE_DEVICE'] = '-1'
@@ -43,36 +59,24 @@ with tf.device('/device:GPU:1'):
     )
 ```
 
-# 3-2. Install WSL on Windows 10
-```
-$ wsl --install -d Ubuntu
-```
-
-# 3-3. Install some modules
-```
-$ apt install pip -y
-$ pip install pyspark
-$ pip install pyarrow
-$ pip install scikit-learn
-$ pip install fastparquet
-$ pip install transformers
-$ pip install ipywidgets widgetsnbextension pandas-profiling
-$ pip install matplotlib==3.7.3
-```
-
-# 3-4. Download and transform the amazon review data
+# 4-2. Download and transform the amazon review data
 ```
 $ cd /mnt/c/Users/<yourAccount>/Downloads
 $ wget https://datasets-documentation.s3.eu-west-3.amazonaws.com/amazon_reviews/amazon_reviews_2015.snappy.parquet
 $ python3 amazon_reviews_parquet_small.py /mnt/c/Users/<yourAccount>/Downloads
 ```
 
-# 3-5. Create DataSet for MachineLearning
+# 4-3. Create DataSet for MachineLearning
 ```
 $ python3 BERT-embedding-from-text_small.py /mnt/c/Users/<yourAccount>/Downloads
 ```
 
-# 3-6. Fine Tuning
+# 4-4. Fine Tuning
 ```
 $ python3 Fine-Tuning_small.py /mnt/c/Users/<yourAccount>/Downloads
 ```
+or You can use Fine-Tuning_small.ipynb attached this repo.
+
+# 4-5. Test the trained model
+You can use load_model_small.ipynb on Jupyter-notebook.
+
