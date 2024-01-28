@@ -130,17 +130,19 @@ log_dir = "./tmp/tensorboard/"
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
 callbacks.append(tensorboard_callback)
 
+print(tf.config.list_physical_devices())
+
 #with tf.device('/CPU:0'):
-#with tf.device('/XPU:0'):
-history = model.fit(
-    train_dataset,
-    shuffle=True,
-    epochs=epochs,
-    steps_per_epoch=steps_per_epoch,
-    validation_data=validation_dataset,
-    validation_steps=validation_steps,
-    callbacks=callbacks,
-)
+with tf.device('/XPU:0'):
+    history = model.fit(
+        train_dataset,
+        shuffle=True,
+        epochs=epochs,
+        steps_per_epoch=steps_per_epoch,
+        validation_data=validation_dataset,
+        validation_steps=validation_steps,
+        callbacks=callbacks,
+    )
 
 model.save(myDir + '/tensorflow_small/',save_format='tf')
 
