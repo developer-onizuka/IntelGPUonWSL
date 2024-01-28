@@ -26,4 +26,4 @@ df=spark.read.parquet(myParquet).select("star_rating","review_id","review_body")
 
 small_df = spark.createDataFrame(df.head(500000))
 small_df.show()
-small_df.write.mode("overwrite").parquet(myDir + "amazon_reviews_2015_small.snappy.parquet")
+small_df.write.mode("overwrite").parquet(myDir + "/amazon_reviews_2015_small.snappy.parquet")

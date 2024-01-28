@@ -120,7 +120,7 @@ from time import strftime
 timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 print(timestamp)
 
-df = pd.read_parquet(myDir + "amazon_reviews_2015_small.snappy.parquet",columns=["star_rating","review_id","review_body"])
+df = pd.read_parquet(myDir + "/amazon_reviews_2015_small.snappy.parquet",columns=["star_rating","review_id","review_body"])
 
 for i in range(1,6):
    print("star_rating: ", i)
@@ -138,8 +138,8 @@ df_shaffle = df_temp.sample(100000)
 df_head = df_shaffle.head(80000)
 df_tail = df_shaffle.tail(20000)
 
-df_head.to_parquet(myDir + "amazon_reviews_2015_small_head.snappy.parquet")
-df_tail.to_parquet(myDir + "amazon_reviews_2015_small_tail.snappy.parquet")
+df_head.to_parquet(myDir + "/amazon_reviews_2015_small_head.snappy.parquet")
+df_tail.to_parquet(myDir + "/amazon_reviews_2015_small_tail.snappy.parquet")
 
 train_df = df_head.sample(n=80000)
 validation_df = df_tail.sample(n=20000)
@@ -154,8 +154,8 @@ validation_inputs = validation_df.apply(
     axis=1,
 )
 
-train_output_file = "/mnt/c/Users/hisay/Downloads/train_data_small.tfrecord"
-validation_output_file = "/mnt/c/Users/hisay/Downloads/validation_data_small.tfrecord"
+train_output_file = myDir + "/train_data_small.tfrecord"
+validation_output_file = myDir + "/validation_data_small.tfrecord"
 
 train_records = transform_inputs_to_tfrecord(train_inputs, train_output_file, max_seq_length)
 validation_records = transform_inputs_to_tfrecord(validation_inputs, validation_output_file, max_seq_length)
