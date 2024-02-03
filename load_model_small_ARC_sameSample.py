@@ -18,13 +18,27 @@ if len(args)<3:
 myDir = args[1]
 precision = args[2]
 
-##### using AMP BF16 precision for predict #####
+##### using AMP BF16/FP16 precision for predict #####
 if precision == "bf16":
     import intel_extension_for_tensorflow as itex
     print("intel_extension_for_tensorflow {}".format(itex.__version__))
 
     auto_mixed_precision_options = itex.AutoMixedPrecisionOptions()
     auto_mixed_precision_options.data_type = itex.BFLOAT16 
+
+    graph_options = itex.GraphOptions(auto_mixed_precision_options=auto_mixed_precision_options)
+    graph_options.auto_mixed_precision = itex.ON
+
+    config = itex.ConfigProto(graph_options=graph_options)
+    itex.set_config(config)
+    device = '/XPU:0'
+
+elif precision == "fp16":
+    import intel_extension_for_tensorflow as itex
+    print("intel_extension_for_tensorflow {}".format(itex.__version__))
+
+    auto_mixed_precision_options = itex.AutoMixedPrecisionOptions()
+    auto_mixed_precision_options.data_type = itex.FLOAT16 
 
     graph_options = itex.GraphOptions(auto_mixed_precision_options=auto_mixed_precision_options)
     graph_options.auto_mixed_precision = itex.ON
