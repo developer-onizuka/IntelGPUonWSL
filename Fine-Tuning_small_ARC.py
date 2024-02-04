@@ -74,7 +74,7 @@ print("train_data_filenames {}".format(train_data_filenames))
 train_dataset = file_based_input_dataset_builder(
     channel="train", 
     input_filenames=train_data_filenames, 
-    max_seq_length=64, 
+    max_seq_length=max_seq_length, 
     is_training=True, 
     drop_remainder=False
 ).map(select_data_and_label_from_record)
@@ -85,7 +85,7 @@ print("validation_data_filenames {}".format(validation_data_filenames))
 validation_dataset = file_based_input_dataset_builder(
     channel="validation",
     input_filenames=validation_data_filenames,
-    max_seq_length=64,
+    max_seq_length=max_seq_length,
     is_training=False,
     drop_remainder=False,
 ).map(select_data_and_label_from_record)
